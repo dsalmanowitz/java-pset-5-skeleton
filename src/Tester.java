@@ -1,21 +1,28 @@
-/**
- * This class has only one responsibility: start the ATM program!
- */
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public class Tester {
 	
 	/**
-	 * Main method.
+	 * Main method. Execution starts here.
 	 * 
 	 * @param args
+	 * @throws InterruptedException 
 	 */
 	
-	public static void main(String[] args) {
-		
-		/*
-		 * Rather than hard coding one or more BankAccount objects, you'll need to read them in
-		 * from our very primitive database (i.e., a flat-file). After making changes, of course,
-		 * you'll need to update the database accordingly.
-		 */
+	public static void main(String[] args) throws InterruptedException {		
+		try {
+			ATM atm = new ATM();
+			atm.run();
+		} catch (InterruptedException e) {
+			System.out.println("Uh, something went wrong.");
+			ATM.showCountdown("Powering off", "Shutdown complete.");
+		} catch (FileNotFoundException e) {
+			System.out.println("Uh, I can't seem to find the database file.");
+			ATM.showCountdown("Powering off", "Shutdown complete.");
+		} catch (IOException e) {
+			System.out.println("Uh, I can't seem to access the database file.");
+			ATM.showCountdown("Powering off", "Shutdown complete.");
+		}
 	}
 }
